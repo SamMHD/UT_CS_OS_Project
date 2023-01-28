@@ -1,0 +1,124 @@
+\hypertarget{simple-preemptive-sfj-scheduling-simulation}{%
+\section{🏷️ Simple Preemptive SFJ Scheduling⏰
+Simulation🧪}\label{simple-preemptive-sfj-scheduling-simulation}}
+
+📖 \textbf{\emph{Operating System Concepts}}
+
+✍️ \emph{Saman Mahdanian - 610399197}
+
+\hypertarget{introduction}{%
+\subsection{🌱 Introduction}\label{introduction}}
+
+The given code is an implementation of a scheduling algorithm called
+\textbf{Shortest Burst Time First (SBTF)}. The purpose of this algorithm
+is to schedule the execution of processes in a way that minimizes the
+average waiting time of processes. This is achieved by prioritizing the
+processes with the shortest burst time. Also, because of the limitations
+of the simulation procedure here we use a time quantom of 50ms.
+
+The code also includes a logging feature that records the start and end
+times of each process as well as any preemption that occurs.
+
+\hypertarget{implementation}{%
+\subsection{🪴 Implementation}\label{implementation}}
+
+The code uses C++17 thread library to implement the scheduling algorithm
+in a separate thread. The main thread is responsible for taking user
+input and inserting new processes into the scheduler's queue. The
+scheduler thread continuously runs and handles the execution of the
+processes.
+
+The scheduler thread uses a \texttt{std::set} container to store the
+processes in the queue. The set is sorted by the burst time of the
+processes, with the process having the shortest burst time at the front.
+The scheduler thread takes the front process from the set, starts its
+execution and logs the start time. The process's burst time is
+decremented by a quantum time (50ms) and if it completes execution, the
+process is terminated and removed from the set. If the process still has
+burst time remaining, it is inserted back into the set.
+
+The code also uses a \texttt{std::unordered\_map} container to store the
+remaining burst time of each process. This is used to update the burst
+time of a process if it is preempted.
+
+A std::mutex is used to synchronize access to the shared data structures
+between the main thread and the scheduler thread.
+
+\hypertarget{implementation-notes}{%
+\subsubsection{🏰 Implementation Notes:}\label{implementation-notes}}
+
+\begin{itemize}
+\item
+  The program is written in C++ and makes use of several C++ standard
+  library features such as the \texttt{iostream}, \texttt{set},
+  \texttt{chrono}, \texttt{thread}, \texttt{fstream}, \texttt{mutex},
+  and \texttt{unordered\_map} libraries.
+\item
+  The Process struct is used to represent a process. It contains the
+  process ID (pid), the burst time (bt) and the arrival time (art) of
+  the process. The \texttt{\textless{}\ operator} is overloaded for this
+  struct to compare the burst time of two processes. This is used by the
+  set data structure to sort the processes in the ready queue.
+\item
+  The \texttt{set\textless{}Process\textgreater{}} processes is used to
+  store the processes in the ready queue. The set is sorted by the burst
+  time of each process, with the process having the shortest burst time
+  at the front.
+\item
+  The \texttt{unordered\_map\textless{}int,\ int\textgreater{}}
+  remaining\_time is used to store the remaining burst time of a process
+  that was preempted.
+\item
+  The \texttt{active\_process\_pid} variable is used to keep track of
+  the currently active process.
+\item
+  The \texttt{mtx} variable is used to implement a mutex lock for
+  synchronizing access to the shared data structures.
+\item
+  The \texttt{user\_alive} variable is used to keep track of whether the
+  user is still entering processes or not.
+\item
+  The \texttt{user\_alive\_mtx} and scheduler\_alive\_mtx variables are
+  used to implement mutex locks for synchronizing access to the
+  \texttt{user\_alive} variable.
+\item
+  The \texttt{schedule()} function is the main function that is run by
+  the scheduler thread. It runs in an infinite loop and repeatedly
+  selects the process at the front of the set, starts executing it, and
+  then preempts it if a process with a shorter burst time arrives. The
+  function also logs all the process scheduling events, such as process
+  start, process termination, and process preemption, in a file called
+  scheduler.log.
+\item
+  The \texttt{main()} function is responsible for creating the scheduler
+  thread and providing a simple user interface for entering new
+  processes. It runs in an infinite loop, where the user is prompted to
+  enter the process ID and burst time of a new process. If the user
+  enters 0 0, the loop exits, and the program ends.
+\end{itemize}
+
+\hypertarget{usage}{%
+\subsection{🚀 Usage}\label{usage}}
+
+To run the code, the user must enter the process ID and burst time (in
+seconds) of each process. The user can stop entering processes by
+entering ``0 0'' as the process ID and burst time. The scheduler thread
+will continue to execute the existing processes and terminate when all
+processes have completed execution.
+
+The scheduler thread will also log the start and end times of each
+process as well as any preemption that occurs in a file named
+``scheduler.log''.
+
+The code can be modified to change the quantum time or the scheduling
+algorithm as per the requirement.
+
+\hypertarget{conclusion}{%
+\subsection{🌳 Conclusion}\label{conclusion}}
+
+The given code is an implementation of the Shortest Burst Time First
+(SBTF) scheduling algorithm using C++17 thread library. The code is
+designed to minimize the average waiting time of processes and includes
+logging feature to record the start and end times of each process and
+preemption. The code is well-commented and can be easily understood and
+modified as per the requirement.
