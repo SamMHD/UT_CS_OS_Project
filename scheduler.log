@@ -1,2 +1,14 @@
 >>> scheduler started <<<
->>> scheduler ended <<<
+1674917604795: [ PID:1 ] Started
+1674917607796: [ PID:1 ] Preempted by PID:3
+1674917607796: [ PID:3 ] Started
+1674917608589: [ PID:3 ] Preempted by PID:1
+1674917608589: [ PID:1 ] Started
+1674917609630: [ PID:1 ] Terminated
+1674917609630: [ PID:3 ] Started
+1674917614089: [ PID:3 ] Terminated
+1674917614089: [ PID:1 ] Started
+1674917621575: [ PID:1 ] Terminated
+1674917621576: [ PID:2 ] Started
+1674917642506: [ PID:2 ] Terminated
+>>> scheduler started <<<
